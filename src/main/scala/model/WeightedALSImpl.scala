@@ -29,11 +29,6 @@ case class WeightedALSImpl(maxIterations: Int = 15, verbose: Boolean = false) ex
     for (iter <- 0 until maxIterations) {
       if (verbose) println(s"Cost at iteration $iter: ${cost(U, V)}")
 
-      // TODO: pensar qué me fumé
-      U := R * V * inv(V.t * V + lambdaI)
-      V := R.t * U * inv(U.t * U + lambdaI)
-
-      /*
       val A1 = lambdaI + V.t * V
       for (i <- 0 until m par) {
         val b = R(i, ::) * V
@@ -45,7 +40,6 @@ case class WeightedALSImpl(maxIterations: Int = 15, verbose: Boolean = false) ex
         val b = R(::, j).t * U
         V(j, ::) := (A2.t \ b.t).t
       }
-      */
     }
 
     if (verbose) println(s"Cost at iteration $maxIterations: ${cost(U, V)}")
